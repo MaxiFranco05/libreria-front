@@ -187,7 +187,7 @@ Paso │ Agente A (Core & Ventas)                 │ Agente B (UI & Formularios
 ## FASE 5 — Persistencia en Almacenamiento Local
 
 ### [C-05] `localstorage-persistence-lifecycle`
-- **Estado**: [ ] pendiente
+- **Estado**: [x] completado (archivado 2026-10-20)
 - **Scope**: Capa de persistencia en `localStorage`, control de ciclo de vida para evitar duplicación de datos semilla en recarga y preservación de inmutabilidad ante mutaciones externas (Ejercicio 6 de consigna - Persistencia).
   - Adaptador de almacenamiento en `js/storage.js`:
     - Métodos encapsulados para lectura, escritura y verificación con serialización y deserialización JSON segura envuelta en bloques `try/catch`.
@@ -217,7 +217,7 @@ Paso │ Agente A (Core & Ventas)                 │ Agente B (UI & Formularios
 ## FASE 6 — Documentación Técnica y Validación de Casos de Prueba
 
 ### [C-06] `technical-documentation-test-cases`
-- **Estado**: [ ] pendiente
+- **Estado**: [x] completado (archivado 2026-10-20)
 - **Scope**: Elaboración exhaustiva del `README.md` institucional, guía de ejecución sin npm y registro formal de los 8 casos de prueba manuales requeridos por la consigna oficial (Ejercicio 6 de consigna - Documentación).
   - Documentación técnica institucional en `README.md`:
     - Portada del proyecto: datos de los autores, institución (Universidad Tecnológica Nacional - UTN), materia (Programación III), año lectivo y cuatrimestre.
