@@ -238,7 +238,7 @@
     // Suscripción reactiva ante cambios en el estado
     if (root.LibreriaApp.state && typeof root.LibreriaApp.state.subscribe === 'function') {
       root.LibreriaApp.state.subscribe((event) => {
-        if (event === 'init' || event === 'book:added') {
+        if (event === 'init' || event === 'book:added' || event === 'libros:updated') {
           // Re-renderizar preservando el filtro activo si existiera
           const currentQuery = searchInput ? searchInput.value : '';
           filterByTitle(currentQuery);

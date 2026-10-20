@@ -56,6 +56,9 @@
     getBooks() {
       return [..._state.libros];
     },
+    getLibros() {
+      return this.getBooks();
+    },
     getBookById(id) {
       return _state.libros.find((b) => b.id === id) || null;
     },
@@ -68,7 +71,11 @@
       if (!book || typeof book !== 'object') return false;
       _state.libros.push({ ...book });
       notify('book:added', { book });
+      notify('libros:updated', { libro: book, libros: [..._state.libros] });
       return true;
+    },
+    addLibro(libro) {
+      return this.addBook(libro);
     },
 
     // ------------------------------------------------------------------------
@@ -76,6 +83,9 @@
     // ------------------------------------------------------------------------
     getEditorials() {
       return [..._state.editoriales];
+    },
+    getEditoriales() {
+      return this.getEditorials();
     },
     getEditorialById(id) {
       return _state.editoriales.find((e) => e.id === id) || null;
@@ -87,6 +97,9 @@
     getGenres() {
       return [..._state.generos];
     },
+    getGeneros() {
+      return this.getGenres();
+    },
     getGenreById(id) {
       return _state.generos.find((g) => g.id === id) || null;
     },
@@ -97,6 +110,9 @@
     getAuthors() {
       return [..._state.autores];
     },
+    getAutores() {
+      return this.getAuthors();
+    },
     getAuthorById(id) {
       return _state.autores.find((a) => a.id === id) || null;
     },
@@ -106,6 +122,9 @@
     // ------------------------------------------------------------------------
     getClients() {
       return [..._state.clientes];
+    },
+    getClientes() {
+      return this.getClients();
     },
     getClientById(id) {
       return _state.clientes.find((c) => c.id === id) || null;
@@ -119,7 +138,11 @@
       if (!client || typeof client !== 'object') return false;
       _state.clientes.push({ ...client });
       notify('client:added', { client });
+      notify('clientes:updated', { cliente: client, clientes: [..._state.clientes] });
       return true;
+    },
+    addCliente(cliente) {
+      return this.addClient(cliente);
     },
 
     // ------------------------------------------------------------------------
@@ -128,10 +151,14 @@
     getSales() {
       return [..._state.ventas];
     },
+    getVentas() {
+      return this.getSales();
+    },
     addSale(sale) {
       if (!sale || typeof sale !== 'object') return false;
       _state.ventas.push({ ...sale });
       notify('sale:added', { sale });
+      notify('ventas:updated', { sale, ventas: [..._state.ventas] });
       return true;
     },
 
@@ -147,6 +174,21 @@
         };
       }
       return () => {};
+    },
+
+    /**
+     * Suscripción semántica a un evento específico
+     * @param {string} eventName - Nombre del evento (ej. 'libros:updated', 'clientes:updated')
+     * @param {Function} handler - Callback que recibe data
+     * @returns {Function} Función para desuscribir
+     */
+    on(eventName, handler) {
+      if (typeof handler !== 'function') return () => {};
+      return this.subscribe((event, data) => {
+        if (event === eventName) {
+          handler(data);
+        }
+      });
     }
   };
 

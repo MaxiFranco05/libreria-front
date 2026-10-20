@@ -220,3 +220,22 @@
 .historial-container {
   width: 100%;
 }
+
+
+/* --------------------------------------------------------------------------
+   Vistas de Formularios y Nómina (C-03)
+   -------------------------------------------------------------------------- */
+.form-card {
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+}
+
+.table-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#tabla-clientes th,
+#tabla-clientes td {
+  padding: 0.85rem 1rem;
+}

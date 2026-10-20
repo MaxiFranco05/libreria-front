@@ -27,9 +27,17 @@
       console.warn('[LibreriaApp] Advertencia: state o seedData no se encuentran disponibles.');
     }
 
-    // 2. Inicializar la vista de catálogo
-    if (app.views && app.views.catalogo && typeof app.views.catalogo.init === 'function') {
-      app.views.catalogo.init();
+    // 2. Inicializar las vistas disponibles
+    if (app.views) {
+      if (app.views.catalogo && typeof app.views.catalogo.init === 'function') {
+        app.views.catalogo.init();
+      }
+      if (app.views.libros && typeof app.views.libros.init === 'function') {
+        app.views.libros.init();
+      }
+      if (app.views.clientes && typeof app.views.clientes.init === 'function') {
+        app.views.clientes.init();
+      }
     }
 
     // 3. Inicializar el enrutador por hash
@@ -40,7 +48,7 @@
       return;
     }
 
-    console.info('[LibreriaApp] SPA Shell y Catálogo inicializados correctamente (v1.1.0).');
+    console.info('[LibreriaApp] SPA Shell, Catálogo, Libros y Clientes inicializados correctamente (v1.2.0).');
   }
 
   // Esperar a que el DOM esté disponible para iniciar

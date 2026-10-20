@@ -128,7 +128,7 @@ Paso │ Agente A (Core & Ventas)                 │ Agente B (UI & Formularios
 ## FASE 3 — Altas y Validación de Entidades
 
 ### [C-03] `forms-validation-books-clients`
-- **Estado**: `[ ]` pendiente
+- **Estado**: [x] completado (archivado 2026-10-20)
 - **Scope**: Formularios de alta para libros y clientes con validaciones estrictas en cliente, interceptación de submit sin recarga y actualización reactiva de las vistas vinculadas (Ejercicio 4 de consigna).
   - Módulo desacoplado de validadores en `js/utils/validators.js`: funciones puras reutilizables para `validateRequired(value)`, `validateISBN(isbn, existingBooks)`, `validatePrice(price)`, `validateEmail(email, existingClients)` y `validateAuthorsSelection(authorIds)`.
   - Formulario y vista de libros en `js/views/libros.view.js`:
@@ -155,7 +155,7 @@ Paso │ Agente A (Core & Ventas)                 │ Agente B (UI & Formularios
 ## FASE 4 — Simulación de Ventas y Snapshot Histórico
 
 ### [C-04] `sales-simulation-historical-price`
-- **Estado**: `[ ]` pendiente
+- **Estado**: [ ] pendiente
 - **Scope**: Módulo interactivo de simulación de ventas con composición dinámica de renglones, cálculo de importes, congelamiento de precio histórico inmutable y consulta de historial de transacciones (Ejercicio 5 de consigna).
   - Vista de ventas en `js/views/ventas.view.js`:
     - Selector de cliente activo poblado reactivamente a partir de `state.clientes`.
@@ -187,7 +187,7 @@ Paso │ Agente A (Core & Ventas)                 │ Agente B (UI & Formularios
 ## FASE 5 — Persistencia en Almacenamiento Local
 
 ### [C-05] `localstorage-persistence-lifecycle`
-- **Estado**: `[ ]` pendiente
+- **Estado**: [ ] pendiente
 - **Scope**: Capa de persistencia en `localStorage`, control de ciclo de vida para evitar duplicación de datos semilla en recarga y preservación de inmutabilidad ante mutaciones externas (Ejercicio 6 de consigna - Persistencia).
   - Adaptador de almacenamiento en `js/storage.js`:
     - Métodos encapsulados para lectura, escritura y verificación con serialización y deserialización JSON segura envuelta en bloques `try/catch`.
@@ -217,7 +217,7 @@ Paso │ Agente A (Core & Ventas)                 │ Agente B (UI & Formularios
 ## FASE 6 — Documentación Técnica y Validación de Casos de Prueba
 
 ### [C-06] `technical-documentation-test-cases`
-- **Estado**: `[ ]` pendiente
+- **Estado**: [ ] pendiente
 - **Scope**: Elaboración exhaustiva del `README.md` institucional, guía de ejecución sin npm y registro formal de los 8 casos de prueba manuales requeridos por la consigna oficial (Ejercicio 6 de consigna - Documentación).
   - Documentación técnica institucional en `README.md`:
     - Portada del proyecto: datos de los autores, institución (Universidad Tecnológica Nacional - UTN), materia (Programación III), año lectivo y cuatrimestre.
