@@ -102,7 +102,7 @@ Paso │ Agente A (Core & Ventas)                 │ Agente B (UI & Formularios
 ## FASE 2 — Modelo Core, Catálogo y Búsqueda
 
 ### [C-02] `catalog-model-search`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` completado
 - **Scope**: Modelado de datos relacional en memoria, inyección de semilla de datos iniciales requerida por consigna y renderizado de catálogo con buscador en tiempo real por título (Ejercicio 3 de consigna).
   - Módulos core de datos:
     - `js/state.js`: almacén centralizado de estado en memoria (`app.state`) para colecciones de `libros`, `editoriales`, `generos`, `autores`, `clientes` y `ventas`.
