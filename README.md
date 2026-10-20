@@ -7,6 +7,9 @@
 > **Evaluación:** Primer Parcial — Aplicación Web Single Page Application (SPA) Nativa  
 > **Año Lectivo:** 2026 — 2.º cuatrimestre  
 > **Grupo de Desarrollo:** Grupo LocalHost  
+> **Integrantes:**  
+> - Maxi Franco  
+> - [Integrantes del equipo de desarrollo]  
 
 ---
 
@@ -242,3 +245,29 @@ En estricto cumplimiento de los requerimientos de entrega y auditoría académic
 ### 2. Declaración de Procedencia de Imágenes y Recursos Visuales
 > **Procedencia de imágenes: No se utilizan imágenes externas ni ajenas (interfaz desarrollada exclusivamente con CSS3 propio y glifos Unicode nativos)**.  
 > La estética editorial, iconos, tarjetas, tablas e indicadores visuales de la aplicación fueron construidos íntegramente mediante maquetación semántica HTML5, tipografía del sistema, variables CSS3 personalizadas y símbolos nativos del estándar Unicode (sin recurrir a librerías de fuentes externas, SVGs de terceros ni paquetes de iconos CDN).
+
+### 3. Ubicación y Estructura de los Datos Iniciales (Seed Data)
+> **Ubicación de los datos iniciales:** `js/seed.js` (objeto global inmutable `LibreriaApp.seedData`).  
+Los datos iniciales se encuentran centralizados en el archivo `js/seed.js` y comprenden:
+- **6 Libros**: identificadores estables `lib-1` a `lib-6`, con ISBNs normalizados, precios válidos, relaciones obligatorias a editoriales y autores, contemplando `lib-6` con género `null` («Sin clasificar»).
+- **2 Editoriales**: `ed-1` (Editorial Siglo XXI) y `ed-2` (Penguin Random House).
+- **2 Géneros**: `gen-1` (Ficción) y `gen-2` (Ensayo).
+- **3 Autores**: `aut-1` (Jorge Luis Borges), `aut-2` (Julio Cortázar) y `aut-3` (Mariana Enríquez).
+- **3 Clientes**: `cli-1` (Juan Pérez), `cli-2` (María Gómez) y `cli-3` (Carlos Rodríguez).
+
+### 4. Guía Docente de Comprobación de Precio Histórico (Pág. 5 del PDF)
+Para reproducir la prueba guiada del docente sobre el catálogo guardado en `localStorage`:
+1. Ingresar a `#ventas`, seleccionar un cliente y agregar renglones: p. ej. 2 unidades de *Ficciones* ($1,500.00 c/u = $3,000.00) y 1 unidad de *El Aleph* ($2,000.00 c/u = $2,000.00). Confirmar la venta (Total: $5,000.00).
+2. Abrir las herramientas de desarrollo del navegador (**DevTools**, tecla `F12`) e ir a la pestaña **Consola** o **Application > Local Storage**.
+3. **Ubicación del catálogo**: clave `libreria_libros`.
+4. **Estructura del catálogo**: array de objetos JSON con esquema `{ id, titulo, isbn, precio, editorialId, generoId, autorIds }`.
+5. Ejecutar en la consola de DevTools para simular una alteración externa del precio en el catálogo sin tocar las ventas:
+   ```javascript
+   const libros = JSON.parse(localStorage.getItem('libreria_libros'));
+   libros[0].precio = 99999.00; // Alteración drástica del precio de catálogo
+   localStorage.setItem('libreria_libros', JSON.stringify(libros));
+   ```
+6. Recargar la página con `F5`.
+7. **Verificación observada**:
+   - En la vista `#catalogo`, el libro refleja el nuevo precio modificado ($99,999.00).
+   - En la vista `#historial`, la venta confirmada previamente **mantiene inmutable el precio unitario histórico de $1,500.00 y el total de $5,000.00**, demostrando que el comprobante no depende del precio vivo del catálogo.
