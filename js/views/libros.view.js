@@ -148,7 +148,7 @@
         checkbox.id = `autor-${aut.id}`;
 
         const span = document.createElement('span');
-        span.textContent = aut.nombreCompleto;
+        span.textContent = aut.nombre || aut.nombreCompleto || '';
 
         label.appendChild(checkbox);
         label.appendChild(span);

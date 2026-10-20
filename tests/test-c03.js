@@ -236,6 +236,12 @@ check('CatalogoView: suscrito al evento libros:updated para refresco reactivo', 
 // 3. Vistas de Libros y Clientes (js/views/libros.view.js y clientes.view.js)
 // -----------------------------------------------------------------------------
 
+check('LibrosView: populateSelects asigna correctamente aut.nombre a los labels de autores', () => {
+  const librosViewCode = fs.readFileSync(path.join(__dirname, '../js/views/libros.view.js'), 'utf-8');
+  assert.ok(librosViewCode.includes('aut.nombre'), 'libros.view.js debe utilizar aut.nombre para el texto del autor');
+  assert.ok(!librosViewCode.includes('span.textContent = aut.nombreCompleto;'), 'No debe usar aut.nombreCompleto');
+});
+
 check('LibrosView: exportación e interfaz pública del controlador', () => {
   const librosView = require('../js/views/libros.view.js');
   assert.strictEqual(typeof librosView.init, 'function');
