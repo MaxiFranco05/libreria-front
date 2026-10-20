@@ -146,6 +146,28 @@
               </div>
             </form>
           </div>
+
+          <div class="card table-card">
+            <h3 class="card-subtitle">Listado de Libros Registrados</h3>
+            <div class="table-responsive" id="libros-table-container">
+              <table class="table" id="tabla-libros">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Editorial</th>
+                    <th scope="col">Género</th>
+                    <th scope="col">Autor(es)</th>
+                    <th scope="col">Precio</th>
+                  </tr>
+                </thead>
+                <tbody id="libros-table-body">
+                  <!-- Filas renderizadas dinámicamente por libros.view.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </section>
 

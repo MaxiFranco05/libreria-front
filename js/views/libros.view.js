@@ -78,7 +78,6 @@
     setFieldError('error-libro-editorial', 'libro-editorial', null);
     setFieldError('error-libro-genero', 'libro-genero', null);
     setFieldError('error-libro-autores', null, null);
-    setFeedback('', 'success');
   }
 
   /**
@@ -167,6 +166,7 @@
       e.preventDefault();
     }
 
+    setFeedback('', 'success');
     clearFieldErrors();
 
     if (typeof document === 'undefined') {
@@ -276,12 +276,105 @@
   }
 
   /**
+   * Renderiza el listado de libros registrados en la tabla del DOM de forma 100% segura (sin innerHTML)
+   * @param {Array} [booksList] - Lista de libros a mostrar (opcional, consulta state por defecto)
+   */
+  function renderTable(booksList) {
+    if (typeof document === 'undefined') return;
+
+    const state = root.LibreriaApp.state;
+    const formatters = root.LibreriaApp.formatters;
+    const books = booksList || (state && typeof state.getLibros === 'function' ? state.getLibros() : (state && typeof state.getBooks === 'function' ? state.getBooks() : []));
+    const tbody = document.getElementById('libros-table-body');
+    if (!tbody) return;
+
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+
+    if (!Array.isArray(books) || books.length === 0) {
+      const emptyRow = document.createElement('tr');
+      const emptyCell = document.createElement('td');
+      emptyCell.colSpan = 7;
+      emptyCell.textContent = 'No hay libros registrados en el sistema.';
+      emptyCell.style.textAlign = 'center';
+      emptyCell.style.color = 'var(--text-muted)';
+      emptyRow.appendChild(emptyCell);
+      tbody.appendChild(emptyRow);
+      return;
+    }
+
+    const editoriales = state && typeof state.getEditoriales === 'function' ? state.getEditoriales() : (state && typeof state.getEditorials === 'function' ? state.getEditorials() : []);
+    const generos = state && typeof state.getGeneros === 'function' ? state.getGeneros() : (state && typeof state.getGenres === 'function' ? state.getGenres() : []);
+    const autores = state && typeof state.getAutores === 'function' ? state.getAutores() : (state && typeof state.getAuthors === 'function' ? state.getAuthors() : []);
+
+    books.forEach((book) => {
+      const tr = document.createElement('tr');
+
+      const tdId = document.createElement('td');
+      tdId.textContent = book.id || '-';
+      tdId.style.fontFamily = 'monospace';
+
+      const tdTitulo = document.createElement('td');
+      tdTitulo.textContent = book.titulo || '-';
+      tdTitulo.style.fontWeight = '500';
+
+      const tdIsbn = document.createElement('td');
+      tdIsbn.textContent = book.isbn || '-';
+      tdIsbn.style.fontFamily = 'monospace';
+
+      const tdEditorial = document.createElement('td');
+      tdEditorial.textContent = formatters && typeof formatters.getEditorialName === 'function'
+        ? formatters.getEditorialName(book.editorialId, editoriales)
+        : (book.editorialId || '-');
+
+      const tdGenero = document.createElement('td');
+      const genName = formatters && typeof formatters.getGeneroName === 'function'
+        ? formatters.getGeneroName(book.generoId, generos)
+        : (book.generoId || 'Sin clasificar');
+      tdGenero.textContent = genName;
+
+      const tdAutores = document.createElement('td');
+      tdAutores.textContent = formatters && typeof formatters.formatAuthors === 'function'
+        ? formatters.formatAuthors(book.autorIds, autores)
+        : (Array.isArray(book.autorIds) ? book.autorIds.join(', ') : '-');
+
+      const tdPrecio = document.createElement('td');
+      tdPrecio.textContent = formatters && typeof formatters.formatCurrency === 'function'
+        ? formatters.formatCurrency(book.precio)
+        : `$${Number(book.precio || 0).toFixed(2)}`;
+      tdPrecio.style.fontWeight = '600';
+
+      tr.appendChild(tdId);
+      tr.appendChild(tdTitulo);
+      tr.appendChild(tdIsbn);
+      tr.appendChild(tdEditorial);
+      tr.appendChild(tdGenero);
+      tr.appendChild(tdAutores);
+      tr.appendChild(tdPrecio);
+      tbody.appendChild(tr);
+    });
+  }
+
+  /**
    * Inicializa la vista de libros
    */
   function init() {
     if (typeof document === 'undefined') return;
 
     populateSelects();
+    renderTable();
+
+    // Suscripción reactiva para refresco de tabla y selectores ante nuevos libros
+    const state = root.LibreriaApp.state;
+    if (state && typeof state.subscribe === 'function') {
+      state.subscribe((event) => {
+        if (event === 'init' || event === 'libros:updated' || event === 'book:added') {
+          populateSelects();
+          renderTable();
+        }
+      });
+    }
 
     const form = document.getElementById('form-libro');
     if (form) {
@@ -290,11 +383,19 @@
         setTimeout(clearFieldErrors, 0);
       });
     }
+
+    const btnReset = document.getElementById('btn-reset-libro');
+    if (btnReset) {
+      btnReset.addEventListener('click', () => {
+        setFeedback('', 'success');
+      });
+    }
   }
 
   const librosView = {
     init,
     populateSelects,
+    renderTable,
     handleFormSubmit,
     setFeedback,
     clearFieldErrors

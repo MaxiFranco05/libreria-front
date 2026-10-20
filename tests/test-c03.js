@@ -246,6 +246,7 @@ check('LibrosView: exportación e interfaz pública del controlador', () => {
   const librosView = require('../js/views/libros.view.js');
   assert.strictEqual(typeof librosView.init, 'function');
   assert.strictEqual(typeof librosView.populateSelects, 'function');
+  assert.strictEqual(typeof librosView.renderTable, 'function');
   assert.strictEqual(typeof librosView.handleFormSubmit, 'function');
 });
 
@@ -272,6 +273,8 @@ check('HTML: Formularios semánticos presentes en index.html', () => {
   const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf-8');
   assert.ok(html.includes('id="form-libro"'), 'Debe existir form-libro');
   assert.ok(html.includes('id="form-cliente"'), 'Debe existir form-cliente');
+  assert.ok(html.includes('id="tabla-libros"'), 'Debe existir tabla-libros');
+  assert.ok(html.includes('id="libros-table-body"'), 'Debe existir libros-table-body');
   assert.ok(html.includes('id="tabla-clientes"'), 'Debe existir tabla-clientes');
   assert.ok(html.includes('id="clientes-table-body"'), 'Debe existir clientes-table-body');
   assert.ok(html.includes('id="libro-autores-group"'), 'Debe existir libro-autores-group');

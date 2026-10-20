@@ -73,7 +73,6 @@
   function clearFieldErrors() {
     setFieldError('error-cliente-nombre', 'cliente-nombre', null);
     setFieldError('error-cliente-email', 'cliente-email', null);
-    setFeedback('', 'success');
   }
 
   /**
@@ -135,6 +134,7 @@
       e.preventDefault();
     }
 
+    setFeedback('', 'success');
     clearFieldErrors();
 
     if (typeof document === 'undefined') {
@@ -228,6 +228,13 @@
       form.addEventListener('submit', handleFormSubmit);
       form.addEventListener('reset', () => {
         setTimeout(clearFieldErrors, 0);
+      });
+    }
+
+    const btnReset = document.getElementById('btn-reset-cliente');
+    if (btnReset) {
+      btnReset.addEventListener('click', () => {
+        setFeedback('', 'success');
       });
     }
   }

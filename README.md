@@ -152,6 +152,12 @@ Actúa como única fuente de verdad en memoria. Expone métodos de lectura inmut
 - **Bandera `libreria_inicializada`**: En el primer inicio almacena la semilla de datos obligatoria (`seed.js`) y fija la bandera en `"true"`. En recargas posteriores (`F5`), recupera las colecciones guardadas sin volver a inyectar la semilla, evitando estrictamente la duplicación de libros o clientes (`RN-PER-01`, `RN-PER-02`).
 - **Sincronización reactiva inmediata**: Escucha los eventos `libros:updated`, `clientes:updated` y `ventas:updated` para persistir cambios de forma transparente (`RN-PER-03`).
 - **Manejo defensivo de excepciones**: Todas las operaciones `get`/`set` están envueltas en bloques `try/catch` para tolerar restricciones de modo incógnito o cuotas excedidas sin congelar la interfaz.
+- **Precisiones Técnicas y Alcance del Almacenamiento Local (Págs. 5 y 6 de la consigna)**:
+  - **Aislamiento por navegador, perfil y origen**: El almacenamiento en `localStorage` reside exclusivamente en el cliente. Su ámbito de visibilidad está acotado estrictamente a la tupla `(protocolo, dominio/origen, puerto)`, al navegador específico (Chrome, Firefox, Edge, etc.) y al perfil de usuario del sistema operativo. Por diseño de la especificación web, **no comparte información entre distintos usuarios o perfiles**, ni entre diferentes navegadores, ni entre sesiones de navegación privada (modo incógnito) y perfiles estándar. La apertura directa mediante protocolo `file://` vincula el almacenamiento a la ruta local del archivo en ese navegador concreto.
+  - **Límites técnicos de la Web Storage API**:
+    - **Cuota de almacenamiento**: Posee una cuota máxima típica de aproximadamente **5 MB** por origen (dependiente de la implementación de cada navegador), concebida para datos estructurados livianos y no para almacenamiento binario masivo.
+    - **Bloqueo sincrónico**: La API es estrictamente sincrónica y opera directamente sobre el hilo principal (*main thread*); por ende, las lecturas y escrituras deben gestionarse de manera compacta para evitar bloqueos perceptibles en la interfaz de usuario.
+    - **Almacenamiento exclusivo en cadenas UTF-16**: `localStorage` admite exclusivamente pares clave-valor de tipo texto (*strings* codificadas en UTF-16). Cualquier estructura de objetos, arreglos o valores numéricos requiere serialización explícita mediante `JSON.stringify()` y deserialización defensiva mediante `JSON.parse()`.
 
 ### 4. Patrón de Congelamiento Contable (Snapshot)
 Al registrarse una venta, cada renglón realiza una copia profunda (`deep clone`) del libro y de su precio unitario en ese instante. Las ventas históricas no se vinculan por puntero vivo al catálogo de libros, garantizando inmutabilidad contable ante futuras mutaciones de precios en el inventario.
@@ -222,3 +228,17 @@ Registro formal de evidencias exigido por la consigna oficial del Primer Parcial
 | **8** | Persistencia en recarga sin duplicación (RN-PER-01/02/03) | Crear un libro y un cliente, confirmar una venta; recargar con `F5`; verificar colecciones y bandera `libreria_inicializada`. | Altas y ventas persisten; los 6 libros semilla no se duplican porque la semilla solo se inyecta cuando la bandera no existe. | Datos persistidos correctamente y sin duplicados de la semilla tras múltiples recargas. | **Aprobado** |
 
 > **Evidencia de inmutabilidad**: el Caso 7 es la prueba guiada del Flujo 4; complementa la triangulación automatizada de `test-c04.js` y `test-c05.js`, que simulan la mutación externa del catálogo y verifican que el snapshot histórico permanezca intacto.
+
+---
+
+## 8. Declaraciones Académicas Formales (Págs. 5 y 6 de la Consigna)
+
+En estricto cumplimiento de los requerimientos de entrega y auditoría académica establecidos por la cátedra de Programación III:
+
+### 1. Declaración de Funcionalidades Pendientes
+> **Funcionalidades pendientes: Ninguna (100% del alcance implementado y verificado)**.  
+> La totalidad de las vistas (Catálogo, Libros, Clientes, Ventas, Historial), validaciones en cliente, reglas de negocio (RN-CAT, RN-LIB, RN-CLI, RN-VNT, RN-PER), accesibilidad WCAG AA, diseño responsivo sin scroll horizontal global y pruebas manuales/automatizadas se encuentran desarrolladas, operativas y auditadas.
+
+### 2. Declaración de Procedencia de Imágenes y Recursos Visuales
+> **Procedencia de imágenes: No se utilizan imágenes externas ni ajenas (interfaz desarrollada exclusivamente con CSS3 propio y glifos Unicode nativos)**.  
+> La estética editorial, iconos, tarjetas, tablas e indicadores visuales de la aplicación fueron construidos íntegramente mediante maquetación semántica HTML5, tipografía del sistema, variables CSS3 personalizadas y símbolos nativos del estándar Unicode (sin recurrir a librerías de fuentes externas, SVGs de terceros ni paquetes de iconos CDN).
