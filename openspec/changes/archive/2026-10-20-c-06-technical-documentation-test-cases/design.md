@@ -11,7 +11,7 @@ Con las 5 fases de código e interfaz completadas (C-01 a C-05), la aplicación 
 - Proveer instrucciones claras y detalladas de inicio rápido con doble clic (`file://`) y servidores locales (`python -m http.server`, VS Code Live Server).
 - Documentar las 5 vistas de la SPA (`#catalogo`, `#libros`, `#clientes`, `#ventas`, `#historial`) con capturas/diagramas de flujo y pasos de uso.
 - Estructurar la matriz tabular de los 8 casos de prueba manuales con descripción, pasos de reproducción, resultado esperado, resultado obtenido y estado.
-- Documentar la suite de 89 pruebas automatizadas nativas (`tests/test-c01.js` a `test-c05.js`).
+- Documentar la suite de 116 verificaciones automatizadas nativas (`tests/test-c01.js` a `test-c05.js`).
 - Actualizar `CHANGES.md` para reflejar el cierre formal del 100% de los changes del roadmap.
 
 **Non-Goals:**
@@ -22,7 +22,7 @@ Con las 5 fases de código e interfaz completadas (C-01 a C-05), la aplicación 
 
 ### 1. Estructura y Jerarquía del `README.md`
 - **Decisión**: Organizar el documento en 6 secciones principales:
-  1. *Portada y Metadatos Académicos*: UTN FRBA, Programación III, Parcial 1, integrantes y año lectivo.
+  1. *Portada y Metadatos Académicos*: UTN FRM, Programación III, Parcial 1, Grupo LocalHost, cuatrimestre y año lectivo.
   2. *Características Principales*: Stack nativo (HTML5/CSS3/Vanilla JS/localStorage), diseño responsivo 320px–1280px y accesibilidad WCAG AA.
   3. *Guía de Inicio Rápido (Apertura Directa y Servidores Estáticos)*: Enfatizando la apertura con doble clic (`file://`) para respetar la Regla Dura #2.
   4. *Manual Operativo de la SPA*: Guía de uso de las 5 vistas.
@@ -42,5 +42,5 @@ Con las 5 fases de código e interfaz completadas (C-01 a C-05), la aplicación 
 
 ## Risks / Trade-offs
 
-- **[Riesgo de discrepancias entre la documentación y el código real]** → *Mitigación*: Cada caso de prueba se redacta a partir del comportamiento real ya verificado por los 89 tests automatizados en `tests/`.
+- **[Riesgo de discrepancias entre la documentación y el código real]** → *Mitigación*: Cada caso de prueba se redacta a partir del comportamiento real ya verificado por las 116 verificaciones automatizadas en `tests/`.
 - **[Riesgo de confusión sobre ejecución con npm]** → *Mitigación*: Declarar explícitamente en el encabezado que el proyecto es 100% libre de dependencias npm y no requiere compilación.

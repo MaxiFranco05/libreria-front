@@ -2,7 +2,7 @@
 
 ## 1. Estructuración y Redacción del README.md Institucional
 
-- [x] 1.1 Redactar la portada académica institucional (UTN FRBA, Programación III, datos del equipo), características del stack nativo, y la guía de inicio rápido libre de herramientas de compilación destacando apertura directa mediante doble clic (`file://`) y servidores locales estáticos. Verificar existencia del archivo `README.md` en la raíz.
+- [x] 1.1 Redactar la portada académica institucional (UTN FRM, Programación III, Grupo LocalHost), características del stack nativo, y la guía de inicio rápido libre de herramientas de compilación destacando apertura directa mediante doble clic (`file://`) y servidores locales estáticos. Verificar existencia del archivo `README.md` en la raíz.
 - [x] 1.2 Elaborar el manual operativo completo de las 5 vistas de la SPA (Catálogo, Libros, Clientes, Ventas e Historial) y el resumen de arquitectura de software (patrón IIFE, State Manager centralizado, adaptador de LocalStorage tolerante a fallos y snapshot inmutable de precios). Verificar exhaustividad de las secciones en `README.md`.
 
 ## 2. Registro de la Matriz de Pruebas y Cierre de Roadmap

@@ -9,14 +9,14 @@ Este cambio finaliza el ciclo del parcial entregando un `README.md` completo, pr
 ## What Changes
 
 - **Elaboración de `README.md` institucional en la raíz del proyecto**:
-  - **Portada académica**: Institución (Universidad Tecnológica Nacional - Facultad Regional Buenos Aires), carrera, cátedra (Programación III), cuatrimestre y datos del equipo de desarrollo.
+  - **Portada académica**: Institución (Universidad Tecnológica Nacional - Facultad Regional Mendoza), carrera, cátedra (Programación III), cuatrimestre y datos del equipo de desarrollo.
   - **Guía de inicio rápido sin compiladores**: Instrucciones precisas para ejecutar la aplicación mediante apertura directa con doble clic (`file://`) y alternativas con servidores estáticos locales (`python -m http.server`, VS Code Live Server).
   - **Recorrido operativo de la SPA**: Manual de uso paso a paso de las 5 vistas funcionales (Catálogo, Libros, Clientes, Ventas e Historial).
   - **Arquitectura y decisiones de diseño**: Explicación de la arquitectura SPA con hash routing, módulo centralizado de estado, adaptador de almacenamiento local tolerante a fallos y patrón de snapshot contable para inmutabilidad de precios históricos.
 - **Matriz formal de los 8 Casos de Prueba Manuales**:
   - Tabla de evidencias con columnas: `Caso #`, `Funcionalidad / Requisito`, `Pasos ejecutados`, `Resultado esperado`, `Resultado obtenido` y `Estado (Aprobado)`.
   - Cobertura exhaustiva de los 8 casos de consigna (Carga inicial, Búsqueda insensible/parcial, Búsqueda vacía/sin resultados, Alta de Libros y validaciones, Alta de Clientes y unicidad, Composición de Ventas y totalizador dinámico, Prueba DevTools de inmutabilidad del precio histórico tras F5, y Persistencia en recarga sin duplicación de catálogo).
-- **Consolidación de suite de tests automatizados**: Documentación de la suite nativa de 89 pruebas unitarias y de integración (`node tests/test-c01.js` a `test-c05.js`).
+- **Consolidación de suite de tests automatizados**: Documentación de la suite nativa de 116 verificaciones unitarias y de integración (`node tests/test-c01.js` a `test-c05.js`).
 
 ## Capabilities
 

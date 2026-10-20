@@ -221,7 +221,7 @@ Paso │ Agente A (Core & Ventas)                 │ Agente B (UI & Formularios
 - **Scope**: Elaboración exhaustiva del `README.md` institucional, guía de ejecución sin npm y registro formal de los 8 casos de prueba manuales requeridos por la consigna oficial (Ejercicio 6 de consigna - Documentación).
   - Documentación técnica institucional en `README.md`:
     - Portada del proyecto: datos de los autores, institución (Universidad Tecnológica Nacional - UTN), materia (Programación III), año lectivo y cuatrimestre.
-    - Guía de inicio rápido sin herramientas de compilación: procedimiento paso a paso para abrir `index.html` directamente en el navegador con doble clic mediante protocolo `file://`, y alternativas recomendadas con servidores web locales estáticos (`python -m http.server`, `npx serve`, Visual Studio Code Live Server).
+    - Guía de inicio rápido sin herramientas de compilación: procedimiento paso a paso para abrir `index.html` directamente en el navegador con doble clic mediante protocolo `file://`, y alternativas recomendadas con servidores web locales estáticos (`python -m http.server`, Visual Studio Code Live Server).
     - Manual operativo de la aplicación: recorrido funcional ilustrado por las 5 vistas de la SPA (Catálogo, Alta de Libros, Alta de Clientes, Simulación de Ventas e Historial).
     - Resumen de arquitectura y decisiones de diseño: justificación de la SPA con hash routing, sistema de persistencia en `localStorage` con prevención de duplicación, y patrón de inmutabilidad contable por snapshot de precios.
   - Matriz y registro formal de los 8 casos de prueba manuales exigidos por la consigna oficial:

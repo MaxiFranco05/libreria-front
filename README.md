@@ -5,7 +5,7 @@
 > **Carrera:** Tecnicatura Universitaria en Programación (TUP)  
 > **Cátedra:** Programación III  
 > **Evaluación:** Primer Parcial — Aplicación Web Single Page Application (SPA) Nativa  
-> **Año Lectivo:** 2026  
+> **Año Lectivo:** 2026 — 2.º cuatrimestre  
 > **Grupo de Desarrollo:** Grupo LocalHost  
 
 ---
@@ -53,11 +53,6 @@ Si se desea servir la aplicación mediante protocolo HTTP local, pueden emplears
 
 - **Con Visual Studio Code**:
   Abrir la carpeta del proyecto y hacer clic en **"Go Live"** mediante la extensión *Live Server*.
-
-- **Con Node / npx (sin instalación local)**:
-  ```bash
-  npx serve .
-  ```
 
 ---
 
@@ -217,7 +212,7 @@ Registro formal de evidencias exigido por la consigna oficial del Primer Parcial
 
 | Caso # | Funcionalidad / Requisito | Pasos ejecutados | Resultado esperado | Resultado obtenido | Estado |
 |---|---|---|---|---|---|
-| **1** | Carga inicial y catálogo (RN-SEED / RN-CAT-06) | Abrir `index.html`; navegar a `#catalogo`; verificar los 6 libros semilla y sus datos (título, ISBN, precio, editorial, género, autores). | Se muestran los 6 libros iniciales con precios `$0.00`; el libro sin género muestra «Sin clasificar». | 6 libros visibles, precios con 2 decimales y badge «Sin clasificar» correcto. | **Aprobado** |
+| **1** | Carga inicial y catálogo (RN-PER-01 / RN-PER-02 / RN-CAT-06) | Abrir `index.html`; navegar a `#catalogo`; verificar los 6 libros semilla y sus datos (título, ISBN, precio, editorial, género, autores). | Se muestran los 6 libros iniciales con precios `$0.00`; el libro sin género muestra «Sin clasificar». | 6 libros visibles, precios con 2 decimales y badge «Sin clasificar» correcto. | **Aprobado** |
 | **2** | Búsqueda insensible y parcial (RN-CAT-01/02/03) | En `#catalogo`, buscar con minúsculas, mayúsculas y subcadenas parciales (p. ej. `borg`, `BORGES`, `or`); probar espacios extremos. | El filtro ignora mayúsculas/minúsculas, coincide por subcadena en cualquier posición y recorta espacios extremos. | Resultados coincidentes en todos los formatos; sin falsos negativos por mayúsculas ni espacios. | **Aprobado** |
 | **3** | Búsqueda sin coincidencias y reseteo (RN-CAT-04/05) | Buscar un término inexistente (`zzzz`); luego vaciar el campo de búsqueda. | Aparece el mensaje «No se encontraron libros que coincidan con la búsqueda»; al vaciar, se restaura el catálogo completo. | Mensaje visible y accesible; catálogo completo restaurado al limpiar el campo. | **Aprobado** |
 | **4** | Alta de libro con validaciones (RN-LIB-01/02/03/04/06) | En `#libros`, intentar alta con ISBN repetido (con y sin guiones), precio `0`/negativo, sin autor y con título vacío; luego completar un alta válida. | Se rechazan los casos inválidos con mensajes junto a cada campo, sin recargar la página; el alta válida actualiza catálogo, lista y selector de ventas. | Rechazos correctos con `preventDefault`; alta válida visible de inmediato en catálogo y ventas. | **Aprobado** |
