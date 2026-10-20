@@ -113,7 +113,7 @@
     const names = authorIds
       .map((id) => {
         const found = authorsList.find((a) => a && a.id === id);
-        return found && found.nombre ? found.nombre : null;
+        return found ? (found.nombre || found.nombreCompleto || null) : null;
       })
       .filter(Boolean);
 

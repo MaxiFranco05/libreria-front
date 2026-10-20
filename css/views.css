@@ -268,14 +268,14 @@
 .ventas-total-label {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: var(--text-primary);
 }
 
 .ventas-total-amount {
   font-family: var(--font-family-serif);
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--accent-burgundy);
+  color: var(--accent-primary);
 }
 
 .cart-qty-input {
@@ -286,12 +286,12 @@
   border-radius: var(--radius-sm);
   font-size: 0.95rem;
   background-color: var(--bg-surface);
-  color: var(--text-main);
+  color: var(--text-primary);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .cart-qty-input:focus-visible {
-  outline: 2px solid var(--color-focus);
+  outline: 2px solid var(--border-focus);
   outline-offset: 1px;
 }
 
@@ -312,7 +312,7 @@
 }
 
 .btn-delete-item:focus-visible {
-  outline: 2px solid var(--color-focus);
+  outline: 2px solid var(--border-focus);
   outline-offset: 1px;
 }
 
@@ -368,7 +368,7 @@
 .historial-detail-table th {
   background-color: var(--bg-surface-alt);
   font-weight: 600;
-  color: var(--text-main);
+  color: var(--text-primary);
 }
 
 .historial-detail-table tr:last-child td {
@@ -392,6 +392,6 @@
 }
 
 .btn-toggle-detail:focus-visible {
-  outline: 2px solid var(--color-focus);
+  outline: 2px solid var(--border-focus);
   outline-offset: 1px;
 }
