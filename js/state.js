@@ -1,0 +1,158 @@
+/**
+ * ============================================================================
+ * State Manager - Almacén Centralizado de Estado en Memoria
+ * Fuente única de verdad para libros, editoriales, géneros, autores, clientes y ventas
+ * ============================================================================
+ */
+
+(function () {
+  'use strict';
+
+  // Soporte universal para ejecución en navegador (window) y entorno de testing (globalThis / Node)
+  const root = typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this);
+  root.LibreriaApp = root.LibreriaApp || {};
+
+  // Estado privado en memoria
+  const _state = {
+    libros: [],
+    editoriales: [],
+    generos: [],
+    autores: [],
+    clientes: [],
+    ventas: []
+  };
+
+  // Suscriptores para reactividad entre módulos
+  const _listeners = [];
+
+  function notify(event, data) {
+    _listeners.forEach((listener) => {
+      try {
+        listener(event, data);
+      } catch (err) {
+        console.error('[LibreriaApp.state] Error en listener:', err);
+      }
+    });
+  }
+
+  const state = {
+    /**
+     * Inicializa el estado con colecciones base
+     * @param {Object} seedData - Conjunto de datos iniciales
+     */
+    init(seedData = {}) {
+      _state.libros = Array.isArray(seedData.libros) ? [...seedData.libros] : [];
+      _state.editoriales = Array.isArray(seedData.editoriales) ? [...seedData.editoriales] : [];
+      _state.generos = Array.isArray(seedData.generos) ? [...seedData.generos] : [];
+      _state.autores = Array.isArray(seedData.autores) ? [...seedData.autores] : [];
+      _state.clientes = Array.isArray(seedData.clientes) ? [...seedData.clientes] : [];
+      _state.ventas = Array.isArray(seedData.ventas) ? [...seedData.ventas] : [];
+      notify('init', { ..._state });
+    },
+
+    // ------------------------------------------------------------------------
+    // Libros
+    // ------------------------------------------------------------------------
+    getBooks() {
+      return [..._state.libros];
+    },
+    getBookById(id) {
+      return _state.libros.find((b) => b.id === id) || null;
+    },
+    getBookByISBN(isbn) {
+      if (!isbn) return null;
+      const cleanISBN = String(isbn).replace(/[\s-]/g, '').toLowerCase();
+      return _state.libros.find((b) => String(b.isbn).replace(/[\s-]/g, '').toLowerCase() === cleanISBN) || null;
+    },
+    addBook(book) {
+      if (!book || typeof book !== 'object') return false;
+      _state.libros.push({ ...book });
+      notify('book:added', { book });
+      return true;
+    },
+
+    // ------------------------------------------------------------------------
+    // Editoriales (Entidad de referencia fija)
+    // ------------------------------------------------------------------------
+    getEditorials() {
+      return [..._state.editoriales];
+    },
+    getEditorialById(id) {
+      return _state.editoriales.find((e) => e.id === id) || null;
+    },
+
+    // ------------------------------------------------------------------------
+    // Géneros (Entidad de referencia fija)
+    // ------------------------------------------------------------------------
+    getGenres() {
+      return [..._state.generos];
+    },
+    getGenreById(id) {
+      return _state.generos.find((g) => g.id === id) || null;
+    },
+
+    // ------------------------------------------------------------------------
+    // Autores (Entidad de referencia fija)
+    // ------------------------------------------------------------------------
+    getAuthors() {
+      return [..._state.autores];
+    },
+    getAuthorById(id) {
+      return _state.autores.find((a) => a.id === id) || null;
+    },
+
+    // ------------------------------------------------------------------------
+    // Clientes
+    // ------------------------------------------------------------------------
+    getClients() {
+      return [..._state.clientes];
+    },
+    getClientById(id) {
+      return _state.clientes.find((c) => c.id === id) || null;
+    },
+    getClientByEmail(email) {
+      if (!email) return null;
+      const cleanEmail = String(email).trim().toLowerCase();
+      return _state.clientes.find((c) => String(c.email).trim().toLowerCase() === cleanEmail) || null;
+    },
+    addClient(client) {
+      if (!client || typeof client !== 'object') return false;
+      _state.clientes.push({ ...client });
+      notify('client:added', { client });
+      return true;
+    },
+
+    // ------------------------------------------------------------------------
+    // Ventas
+    // ------------------------------------------------------------------------
+    getSales() {
+      return [..._state.ventas];
+    },
+    addSale(sale) {
+      if (!sale || typeof sale !== 'object') return false;
+      _state.ventas.push({ ...sale });
+      notify('sale:added', { sale });
+      return true;
+    },
+
+    // ------------------------------------------------------------------------
+    // Sistema de Suscripción Pub/Sub
+    // ------------------------------------------------------------------------
+    subscribe(listener) {
+      if (typeof listener === 'function') {
+        _listeners.push(listener);
+        return () => {
+          const index = _listeners.indexOf(listener);
+          if (index !== -1) _listeners.splice(index, 1);
+        };
+      }
+      return () => {};
+    }
+  };
+
+  root.LibreriaApp.state = state;
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = state;
+  }
+})();

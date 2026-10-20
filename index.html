@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Librería Central - Sistema de gestión de catálogo, libros, clientes y ventas">
+  <title>Librería Central - Gestión Editorial</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/views.css">
+  <script defer src="js/utils/formatters.js"></script>
+  <script defer src="js/seed.js"></script>
+  <script defer src="js/state.js"></script>
+  <script defer src="js/views/catalogo.view.js"></script>
+  <script defer src="js/router.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <!-- Enlace accesible de salto directo al contenido principal -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- Encabezado y barra de navegación institucional -->
+  <header class="app-header" role="banner">
+    <div class="header-container">
+      <div class="brand">
+        <h1 class="brand-title">Librería Central</h1>
+        <p class="brand-subtitle">Gestión de Catálogo y Ventas</p>
+      </div>
+      <nav class="app-nav" aria-label="Navegación principal">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="#catalogo" class="nav-link" id="nav-catalogo" aria-current="page">Catálogo</a>
+          </li>
+          <li class="nav-item">
+            <a href="#libros" class="nav-link" id="nav-libros">Libros</a>
+          </li>
+          <li class="nav-item">
+            <a href="#clientes" class="nav-link" id="nav-clientes">Clientes</a>
+          </li>
+          <li class="nav-item">
+            <a href="#ventas" class="nav-link" id="nav-ventas">Ventas</a>
+          </li>
+          <li class="nav-item">
+            <a href="#historial" class="nav-link" id="nav-historial">Historial</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenedor principal de vistas SPA -->
+  <main id="main-content" class="main-content" tabindex="-1">
+    <div class="content-container">
+      
+      <!-- Vista 1: Catálogo -->
+      <section id="catalogo" class="view-section active" aria-labelledby="title-catalogo">
+        <header class="view-header">
+          <h2 id="title-catalogo" class="view-title" tabindex="-1">Catálogo de Libros</h2>
+          <p class="view-description">Exploración y búsqueda de ejemplares disponibles en el fondo editorial.</p>
+        </header>
+        <div class="view-content" id="catalogo-content">
+          <div class="catalogo-toolbar">
+            <div class="form-group search-group">
+              <label for="catalogo-search" class="form-label">Buscar libro por título:</label>
+              <input type="search" id="catalogo-search" class="form-control" placeholder="Ej. Ficciones, Aleph, Rayuela..." autocomplete="off">
+            </div>
+            <p class="visually-hidden" aria-live="polite" id="catalogo-search-status"></p>
+          </div>
+          <div class="catalogo-grid" id="catalogo-grid">
+            <!-- Las tarjetas de libros se renderizan dinámicamente mediante catalogo.view.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Vista 2: Libros -->
+      <section id="libros" class="view-section" aria-labelledby="title-libros">
+        <header class="view-header">
+          <h2 id="title-libros" class="view-title" tabindex="-1">Administración de Libros</h2>
+          <p class="view-description">Formulario de alta e incorporación de nuevos títulos al catálogo.</p>
+        </header>
+        <div class="view-content" id="libros-content">
+          <div class="card placeholder-card">
+            <p class="placeholder-text">El formulario de registro y validación de libros se cargará aquí.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vista 3: Clientes -->
+      <section id="clientes" class="view-section" aria-labelledby="title-clientes">
+        <header class="view-header">
+          <h2 id="title-clientes" class="view-title" tabindex="-1">Registro de Clientes</h2>
+          <p class="view-description">Alta y nómina de clientes habilitados para emitir comprobantes de venta.</p>
+        </header>
+        <div class="view-content" id="clientes-content">
+          <div class="card placeholder-card">
+            <p class="placeholder-text">El formulario y listado de clientes se cargarán aquí.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vista 4: Ventas -->
+      <section id="ventas" class="view-section" aria-labelledby="title-ventas">
+        <header class="view-header">
+          <h2 id="title-ventas" class="view-title" tabindex="-1">Simulación de Ventas</h2>
+          <p class="view-description">Composición de operaciones, cálculo de importes y congelamiento de precio histórico.</p>
+        </header>
+        <div class="view-content" id="ventas-content">
+          <div class="card placeholder-card">
+            <p class="placeholder-text">El panel de composición de ventas y órdenes se cargará aquí.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vista 5: Historial -->
+      <section id="historial" class="view-section" aria-labelledby="title-historial">
+        <header class="view-header">
+          <h2 id="title-historial" class="view-title" tabindex="-1">Historial de Ventas</h2>
+          <p class="view-description">Auditoría inmutable de comprobantes emitidos y detalle de renglones.</p>
+        </header>
+        <div class="view-content" id="historial-content">
+          <div class="card placeholder-card">
+            <p class="placeholder-text">La tabla histórica de ventas confirmadas se cargará aquí.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Pie de página institucional -->
+  <footer class="app-footer" role="contentinfo">
+    <div class="footer-container">
+      <p class="footer-text">&copy; 2026 Librería Central — Programación III (UTN FRSR)</p>
+      <p class="footer-meta">Single Page Application nativa — HTML5 semántico, CSS3 y JavaScript ES6+</p>
+    </div>
+  </footer>
+</body>
+</html>

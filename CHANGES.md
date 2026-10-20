@@ -75,7 +75,7 @@ Paso │ Agente A (Core & Ventas)                 │ Agente B (UI & Formularios
 ## FASE 1 — Cimientos de Interfaz y Navegación SPA
 
 ### [C-01] `spa-shell-layout-accessibility`
-- **Estado**: `[ ]` pendiente
+- **Estado**: `[x]` completado (archivado 2026-10-20)
 - **Scope**: Scaffolding base de la aplicación Single Page Application (SPA), marcado semántico HTML5, sistema de diseño responsivo y pautas de accesibilidad por teclado (Ejercicios 1 y 2 de consigna).
   - Estructura de archivos y directorios: `index.html`, `css/base.css`, `css/layout.css`, `css/components.css`, `css/views.css`, `js/app.js`, `js/router.js`, `assets/`.
   - Markup semántico en `index.html`: `<header>` con identidad visual institucional, `<nav>` accesible con lista de enlaces de navegación (`#catalogo`, `#libros`, `#clientes`, `#ventas`, `#historial`), `<main>` contenedor con 5 secciones semánticas `<section id="...">` correspondientes a cada vista, y `<footer>` con datos de cátedra y autoría.
