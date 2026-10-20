@@ -4,12 +4,13 @@
 > **Facultad Regional Mendoza (FRM)**  
 > **Carrera:** Tecnicatura Universitaria en Programación (TUP)  
 > **Cátedra:** Programación III  
-> **Evaluación:** Primer Parcial — Aplicación Web Single Page Application (SPA) Nativa  
-> **Año Lectivo:** 2026 — 2.º cuatrimestre  
+> **Comisión:** 3  
+> **Evaluación:** Parcial 1 — frontend de una librería  
 > **Grupo de Desarrollo:** Grupo LocalHost  
-> **Integrantes:**  
-> - Maxi Franco  
-> - [Integrantes del equipo de desarrollo]  
+> **Integrantes:**
+> - Máximo Franco  
+> - Andrés Novello
+> - Octavio Fiore
 
 ---
 
