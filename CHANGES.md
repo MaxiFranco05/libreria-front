@@ -155,7 +155,7 @@ Paso │ Agente A (Core & Ventas)                 │ Agente B (UI & Formularios
 ## FASE 4 — Simulación de Ventas y Snapshot Histórico
 
 ### [C-04] `sales-simulation-historical-price`
-- **Estado**: [ ] pendiente
+- **Estado**: `[x]` completado (archivado 2026-10-20)
 - **Scope**: Módulo interactivo de simulación de ventas con composición dinámica de renglones, cálculo de importes, congelamiento de precio histórico inmutable y consulta de historial de transacciones (Ejercicio 5 de consigna).
   - Vista de ventas en `js/views/ventas.view.js`:
     - Selector de cliente activo poblado reactivamente a partir de `state.clientes`.

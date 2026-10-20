@@ -37,16 +37,21 @@
 
   const state = {
     /**
-     * Inicializa el estado con colecciones base
+     * Inicializa el estado con colecciones base garantizando clonación profunda
      * @param {Object} seedData - Conjunto de datos iniciales
      */
     init(seedData = {}) {
-      _state.libros = Array.isArray(seedData.libros) ? [...seedData.libros] : [];
-      _state.editoriales = Array.isArray(seedData.editoriales) ? [...seedData.editoriales] : [];
-      _state.generos = Array.isArray(seedData.generos) ? [...seedData.generos] : [];
-      _state.autores = Array.isArray(seedData.autores) ? [...seedData.autores] : [];
-      _state.clientes = Array.isArray(seedData.clientes) ? [...seedData.clientes] : [];
-      _state.ventas = Array.isArray(seedData.ventas) ? [...seedData.ventas] : [];
+      _state.libros = Array.isArray(seedData.libros) ? seedData.libros.map((b) => ({ ...b })) : [];
+      _state.editoriales = Array.isArray(seedData.editoriales) ? seedData.editoriales.map((e) => ({ ...e })) : [];
+      _state.generos = Array.isArray(seedData.generos) ? seedData.generos.map((g) => ({ ...g })) : [];
+      _state.autores = Array.isArray(seedData.autores) ? seedData.autores.map((a) => ({ ...a })) : [];
+      _state.clientes = Array.isArray(seedData.clientes) ? seedData.clientes.map((c) => ({ ...c })) : [];
+      _state.ventas = Array.isArray(seedData.ventas)
+        ? seedData.ventas.map((s) => ({
+            ...s,
+            renglones: Array.isArray(s.renglones) ? s.renglones.map((r) => ({ ...r })) : []
+          }))
+        : [];
       notify('init', { ..._state });
     },
 
@@ -54,91 +59,112 @@
     // Libros
     // ------------------------------------------------------------------------
     getBooks() {
-      return [..._state.libros];
+      return _state.libros.map((b) => ({ ...b }));
     },
     getLibros() {
       return this.getBooks();
     },
     getBookById(id) {
-      return _state.libros.find((b) => b.id === id) || null;
+      const found = _state.libros.find((b) => b.id === id);
+      return found ? { ...found } : null;
     },
     getBookByISBN(isbn) {
       if (!isbn) return null;
       const cleanISBN = String(isbn).replace(/[\s-]/g, '').toLowerCase();
-      return _state.libros.find((b) => String(b.isbn).replace(/[\s-]/g, '').toLowerCase() === cleanISBN) || null;
+      const found = _state.libros.find((b) => String(b.isbn).replace(/[\s-]/g, '').toLowerCase() === cleanISBN);
+      return found ? { ...found } : null;
     },
     addBook(book) {
       if (!book || typeof book !== 'object') return false;
       _state.libros.push({ ...book });
-      notify('book:added', { book });
-      notify('libros:updated', { libro: book, libros: [..._state.libros] });
+      notify('book:added', { book: { ...book } });
+      notify('libros:updated', { libro: { ...book }, libros: this.getBooks() });
       return true;
     },
     addLibro(libro) {
       return this.addBook(libro);
+    },
+    updateBookPrice(bookId, newPrice) {
+      const index = _state.libros.findIndex((b) => b.id === bookId);
+      if (index === -1) return false;
+      const num = Number(newPrice);
+      if (isNaN(num) || num <= 0) return false;
+      const newBook = {
+        ..._state.libros[index],
+        precio: Math.round((num + Number.EPSILON) * 100) / 100
+      };
+      _state.libros[index] = newBook;
+      notify('book:updated', { book: { ...newBook } });
+      notify('libros:updated', { libro: { ...newBook }, libros: this.getBooks() });
+      return true;
     },
 
     // ------------------------------------------------------------------------
     // Editoriales (Entidad de referencia fija)
     // ------------------------------------------------------------------------
     getEditorials() {
-      return [..._state.editoriales];
+      return _state.editoriales.map((e) => ({ ...e }));
     },
     getEditoriales() {
       return this.getEditorials();
     },
     getEditorialById(id) {
-      return _state.editoriales.find((e) => e.id === id) || null;
+      const found = _state.editoriales.find((e) => e.id === id);
+      return found ? { ...found } : null;
     },
 
     // ------------------------------------------------------------------------
     // Géneros (Entidad de referencia fija)
     // ------------------------------------------------------------------------
     getGenres() {
-      return [..._state.generos];
+      return _state.generos.map((g) => ({ ...g }));
     },
     getGeneros() {
       return this.getGenres();
     },
     getGenreById(id) {
-      return _state.generos.find((g) => g.id === id) || null;
+      const found = _state.generos.find((g) => g.id === id);
+      return found ? { ...found } : null;
     },
 
     // ------------------------------------------------------------------------
     // Autores (Entidad de referencia fija)
     // ------------------------------------------------------------------------
     getAuthors() {
-      return [..._state.autores];
+      return _state.autores.map((a) => ({ ...a }));
     },
     getAutores() {
       return this.getAuthors();
     },
     getAuthorById(id) {
-      return _state.autores.find((a) => a.id === id) || null;
+      const found = _state.autores.find((a) => a.id === id);
+      return found ? { ...found } : null;
     },
 
     // ------------------------------------------------------------------------
     // Clientes
     // ------------------------------------------------------------------------
     getClients() {
-      return [..._state.clientes];
+      return _state.clientes.map((c) => ({ ...c }));
     },
     getClientes() {
       return this.getClients();
     },
     getClientById(id) {
-      return _state.clientes.find((c) => c.id === id) || null;
+      const found = _state.clientes.find((c) => c.id === id);
+      return found ? { ...found } : null;
     },
     getClientByEmail(email) {
       if (!email) return null;
       const cleanEmail = String(email).trim().toLowerCase();
-      return _state.clientes.find((c) => String(c.email).trim().toLowerCase() === cleanEmail) || null;
+      const found = _state.clientes.find((c) => String(c.email).trim().toLowerCase() === cleanEmail);
+      return found ? { ...found } : null;
     },
     addClient(client) {
       if (!client || typeof client !== 'object') return false;
       _state.clientes.push({ ...client });
-      notify('client:added', { client });
-      notify('clientes:updated', { cliente: client, clientes: [..._state.clientes] });
+      notify('client:added', { client: { ...client } });
+      notify('clientes:updated', { cliente: { ...client }, clientes: this.getClients() });
       return true;
     },
     addCliente(cliente) {
@@ -148,18 +174,47 @@
     // ------------------------------------------------------------------------
     // Ventas
     // ------------------------------------------------------------------------
+    getNextSaleId() {
+      const prefix = 'VNT-';
+      let maxNum = 1000;
+      _state.ventas.forEach((v) => {
+        if (v && v.id && typeof v.id === 'string' && v.id.startsWith(prefix)) {
+          const num = parseInt(v.id.substring(prefix.length), 10);
+          if (!isNaN(num) && num > maxNum) {
+            maxNum = num;
+          }
+        }
+      });
+      return `${prefix}${maxNum + 1}`;
+    },
     getSales() {
-      return [..._state.ventas];
+      return _state.ventas.map((s) => ({
+        ...s,
+        renglones: Array.isArray(s.renglones) ? s.renglones.map((r) => ({ ...r })) : []
+      }));
     },
     getVentas() {
       return this.getSales();
     },
     addSale(sale) {
       if (!sale || typeof sale !== 'object') return false;
-      _state.ventas.push({ ...sale });
-      notify('sale:added', { sale });
-      notify('ventas:updated', { sale, ventas: [..._state.ventas] });
+      const clonedRenglones = Array.isArray(sale.renglones)
+        ? sale.renglones.map((r) => ({ ...r }))
+        : [];
+      const clonedSale = {
+        ...sale,
+        renglones: clonedRenglones
+      };
+      _state.ventas.push(clonedSale);
+      notify('sale:added', { sale: { ...clonedSale, renglones: clonedSale.renglones.map((r) => ({ ...r })) } });
+      notify('ventas:updated', {
+        sale: { ...clonedSale, renglones: clonedSale.renglones.map((r) => ({ ...r })) },
+        ventas: this.getSales()
+      });
       return true;
+    },
+    addVenta(venta) {
+      return this.addSale(venta);
     },
 
     // ------------------------------------------------------------------------

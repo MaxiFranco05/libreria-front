@@ -38,6 +38,12 @@
       if (app.views.clientes && typeof app.views.clientes.init === 'function') {
         app.views.clientes.init();
       }
+      if (app.views.ventas && typeof app.views.ventas.init === 'function') {
+        app.views.ventas.init();
+      }
+      if (app.views.historial && typeof app.views.historial.init === 'function') {
+        app.views.historial.init();
+      }
     }
 
     // 3. Inicializar el enrutador por hash
@@ -48,7 +54,7 @@
       return;
     }
 
-    console.info('[LibreriaApp] SPA Shell, Catálogo, Libros y Clientes inicializados correctamente (v1.2.0).');
+    console.info('[LibreriaApp] SPA Shell, Catálogo, Libros, Clientes, Ventas e Historial inicializados correctamente (v1.3.0).');
   }
 
   // Esperar a que el DOM esté disponible para iniciar

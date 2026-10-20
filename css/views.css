@@ -185,7 +185,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Estructura de Vistas de Formularios: Libros y Clientes (Preparación para C-03)
+   Estructura de Vistas de Formularios: Libros y Clientes (C-03)
    -------------------------------------------------------------------------- */
 .form-layout {
   display: grid;
@@ -199,32 +199,6 @@
   }
 }
 
-/* --------------------------------------------------------------------------
-   Estructura de Vista: Ventas (Preparación para C-04)
-   -------------------------------------------------------------------------- */
-.ventas-layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-@media (min-width: 900px) {
-  .ventas-layout {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Estructura de Vista: Historial (Preparación para C-04 / C-05)
-   -------------------------------------------------------------------------- */
-.historial-container {
-  width: 100%;
-}
-
-
-/* --------------------------------------------------------------------------
-   Vistas de Formularios y Nómina (C-03)
-   -------------------------------------------------------------------------- */
 .form-card {
   max-width: 800px;
   margin: 0 auto 2rem auto;
@@ -238,4 +212,186 @@
 #tabla-clientes th,
 #tabla-clientes td {
   padding: 0.85rem 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Estructura de Vista: Ventas (C-04)
+   -------------------------------------------------------------------------- */
+.ventas-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .ventas-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ventas-form-panel,
+.ventas-cart-panel {
+  max-width: 100%;
+  margin: 0;
+}
+
+.form-divider {
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+  margin: 1.5rem 0;
+}
+
+.form-section-title {
+  font-family: var(--font-family-serif);
+  font-size: 1.15rem;
+  color: var(--accent-navy);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.ventas-summary-box {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background-color: var(--bg-surface-alt);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.ventas-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.ventas-total-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.ventas-total-amount {
+  font-family: var(--font-family-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent-burgundy);
+}
+
+.cart-qty-input {
+  width: 65px;
+  padding: 0.35rem 0.5rem;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.cart-qty-input:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 1px;
+}
+
+.btn-delete-item {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid #c93b2b;
+  color: #c93b2b;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-delete-item:hover {
+  background-color: #c93b2b;
+  color: #ffffff;
+}
+
+.btn-delete-item:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 1px;
+}
+
+#tabla-borrador-venta th,
+#tabla-borrador-venta td {
+  padding: 0.75rem 0.5rem;
+  vertical-align: middle;
+}
+
+/* --------------------------------------------------------------------------
+   Estructura de Vista: Historial (C-04)
+   -------------------------------------------------------------------------- */
+.historial-container {
+  width: 100%;
+}
+
+#tabla-historial-ventas th,
+#tabla-historial-ventas td {
+  padding: 0.85rem 0.75rem;
+  vertical-align: middle;
+}
+
+.historial-detail-row {
+  background-color: var(--bg-surface-alt);
+}
+
+.historial-detail-row[hidden] {
+  display: none;
+}
+
+.historial-detail-cell {
+  padding: 1.25rem !important;
+}
+
+.historial-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0 0.25rem 0;
+  font-size: 0.9rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.historial-detail-table th,
+.historial-detail-table td {
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.historial-detail-table th {
+  background-color: var(--bg-surface-alt);
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.historial-detail-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.btn-toggle-detail {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: 1px solid var(--accent-navy);
+  color: var(--accent-navy);
+  background-color: transparent;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.btn-toggle-detail:hover {
+  background-color: var(--accent-navy);
+  color: #ffffff;
+}
+
+.btn-toggle-detail:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 1px;
 }

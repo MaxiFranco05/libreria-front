@@ -166,6 +166,87 @@
     return { valid: true, sanitizedValue: normalized };
   }
 
+  /**
+   * Valida selección de cliente requerida y registrada (RN-VNT-01)
+   * @param {string} clienteId - ID del cliente
+   * @param {Array} [existingClients=[]] - Lista de clientes disponibles
+   * @returns {{ valid: boolean, error?: string, sanitizedValue?: string }}
+   */
+  function validateSaleClient(clienteId, existingClients = []) {
+    const req = validateRequired(clienteId, 'El cliente');
+    if (!req.valid) {
+      return { valid: false, error: 'Debe seleccionar un cliente para la venta.' };
+    }
+
+    const exists = Array.isArray(existingClients) && existingClients.some((c) => c && c.id === req.sanitizedValue);
+    if (!exists) {
+      return { valid: false, error: 'El cliente seleccionado no existe en el sistema.' };
+    }
+
+    return { valid: true, sanitizedValue: req.sanitizedValue };
+  }
+
+  /**
+   * Valida selección de libro requerida y existente en el catálogo (RN-VNT-02)
+   * @param {string} libroId - ID del libro
+   * @param {Array} [existingBooks=[]] - Lista de libros en catálogo
+   * @returns {{ valid: boolean, error?: string, sanitizedValue?: string }}
+   */
+  function validateSaleBookSelection(libroId, existingBooks = []) {
+    const req = validateRequired(libroId, 'El libro');
+    if (!req.valid) {
+      return { valid: false, error: 'Debe seleccionar un libro para agregar al pedido.' };
+    }
+
+    const exists = Array.isArray(existingBooks) && existingBooks.some((b) => b && b.id === req.sanitizedValue);
+    if (!exists) {
+      return { valid: false, error: 'El libro seleccionado no existe en el catálogo.' };
+    }
+
+    return { valid: true, sanitizedValue: req.sanitizedValue };
+  }
+
+  /**
+   * Valida que la cantidad sea un número entero estrictamente mayor o igual a 1 (RN-VNT-02)
+   * @param {number|string} quantity - Cantidad a validar
+   * @returns {{ valid: boolean, error?: string, sanitizedValue?: number }}
+   */
+  function validateSaleQuantity(quantity) {
+    if (quantity === null || quantity === undefined || String(quantity).trim() === '') {
+      return { valid: false, error: 'La cantidad es obligatoria.' };
+    }
+
+    const rawStr = String(quantity).trim();
+    const num = Number(rawStr);
+
+    if (isNaN(num) || !Number.isInteger(num) || num < 1 || rawStr.includes('.')) {
+      return { valid: false, error: 'La cantidad debe ser un número entero mayor o igual a 1.' };
+    }
+
+    return { valid: true, sanitizedValue: num };
+  }
+
+  /**
+   * Valida que el pedido en borrador contenga al menos un renglón válido (RN-VNT-02)
+   * @param {Array} rows - Lista de renglones del pedido
+   * @returns {{ valid: boolean, error?: string, sanitizedValue?: Array }}
+   */
+  function validateSaleRows(rows) {
+    if (!Array.isArray(rows) || rows.length === 0) {
+      return { valid: false, error: 'La venta debe incluir al menos un libro en el pedido.' };
+    }
+
+    const allValid = rows.every((r) => {
+      return r && r.libroId && Number.isInteger(r.cantidad) && r.cantidad >= 1;
+    });
+
+    if (!allValid) {
+      return { valid: false, error: 'Uno o más renglones del pedido contienen datos inválidos.' };
+    }
+
+    return { valid: true, sanitizedValue: [...rows] };
+  }
+
   const validators = {
     validateRequired,
     normalizeISBN,
@@ -173,7 +254,11 @@
     validatePrice,
     validateEditorial,
     validateAuthorsSelection,
-    validateEmail
+    validateEmail,
+    validateSaleClient,
+    validateSaleBookSelection,
+    validateSaleQuantity,
+    validateSaleRows
   };
 
   root.LibreriaApp.validators = validators;
